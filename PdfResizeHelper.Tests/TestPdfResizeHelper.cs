@@ -2,19 +2,19 @@
 using iTextSharp.text.pdf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfResizeHelper.Parameters;
+using System;
 using System.IO;
 
 namespace PdfResizeHelper.Tests
 {
     [TestClass]
+    [System.Runtime.InteropServices.Guid("5800FE55-212D-4D8A-BBCB-258EBFF9A55B")]
     public class TestPdfResizeHelper
     {
         [TestMethod]
         public void PdfResizeHelperSimpleTest()
         {
             var originalPdfBytes = TestHelper.ReadTestDataFileBytes(@"TestDoc_01.pdf");
-
-            var pdfBytes = File.ReadAllBytes("");
 
             //*************************************************
             //Setup & Execute Tests...
@@ -28,7 +28,6 @@ namespace PdfResizeHelper.Tests
             //Validate Results...
             //*************************************************
             using (var pdf = new PdfReader(resizedBytes))
-            using (var doc = new Document(targetSizeInfo.PageSize))
             {
                 var targetPageSize = targetSizeInfo.PageSize;
 
@@ -42,8 +41,7 @@ namespace PdfResizeHelper.Tests
                 }
             }
 
-            //var fileName = $@"D:\Temp\PdfResizeHelper\RESIZED OUTPUT TEST - {Guid.NewGuid()}.pdf";
-            //File.WriteAllBytes(fileName, resizedBytes);
+            File.WriteAllBytes($@"D:\Temp\PdfResizeHelper\RESIZED OUTPUT TEST - {Guid.NewGuid()}.pdf", resizedBytes);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace PdfResizeHelper
             if (currentPage == null) throw new ArgumentNullException(nameof(currentPage), "Pdf Imported Page cannot be null.");
             if (targetDoc == null) throw new ArgumentNullException(nameof(targetDoc), "Target Pdf Document builder cannot be null.");
 
-            var pdfTemplateHelper = new ImgTemplate(currentPage);
+            var pdfContent = new ImgTemplate(currentPage);
 
             //Initialize with Default Scaling Options...
             var pdfScalingOptions = scalingOptions ?? PdfScalingOptions.Default;
@@ -85,7 +85,7 @@ namespace PdfResizeHelper
             //      a) the current size is using landscape orientation
             //      b) and the target size is not already in the same orientation (e.g. landscape)
             if (pdfScalingOptions.EnableDynamicLandscapeOrientation
-                && pdfTemplateHelper.Width > pdfTemplateHelper.Height 
+                && pdfContent.Width > pdfContent.Height 
                 && targetHeight > targetWidth)
             {
                 targetSize = targetDoc.PageSize.Rotate();
@@ -106,29 +106,37 @@ namespace PdfResizeHelper
                     scalingEnabled = true;
                     break;
                 case PdfResizeScalingMode.ScaleDownOnly:
-                    scalingEnabled = pdfTemplateHelper.Width > targetWidth || pdfTemplateHelper.Height > targetHeight;
+                    scalingEnabled = pdfContent.Width > targetWidth || pdfContent.Height > targetHeight;
                     break;
                 case PdfResizeScalingMode.ScaleUpOnly:
-                    scalingEnabled = pdfTemplateHelper.Width < targetWidth || pdfTemplateHelper.Height < targetHeight;
+                    scalingEnabled = pdfContent.Width < targetWidth || pdfContent.Height < targetHeight;
                     break;
             }
 
             //Support Maintaining Aspect Ratio...
             if (scalingEnabled && pdfScalingOptions.MaintainAspectRatio)
             {
-                pdfTemplateHelper.ScaleToFit(targetWidth, targetHeight);
+                pdfContent.ScaleToFit(targetWidth, targetHeight);
             }
             //Support Skewed Resizing...
             else if (scalingEnabled)
             {
-                pdfTemplateHelper.ScaleAbsolute(targetWidth, targetHeight);
+                pdfContent.ScaleAbsolute(targetWidth, targetHeight);
             }
             //Do nothing if scaling is not enabled due to parameters and current size details...
             //else { }
 
+            //If Enabled then we adjust the position to center the content on the Page...
+            if (pdfScalingOptions.EnableContentCentering)
+            {
+                var x = (targetWidth - pdfContent.ScaledWidth) / 2;
+                var y = (targetHeight - pdfContent.ScaledHeight) / 2;
+                pdfContent.SetAbsolutePosition(x, y);
+            }
+
             return new PdfScaledTemplateInfo()
             {
-                ScaledPdfTemplate = pdfTemplateHelper,
+                ScaledPdfTemplate = pdfContent,
                 PageOrientation = pageOrientation,
                 TargetPageSize = targetSize
             };

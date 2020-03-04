@@ -19,7 +19,7 @@ namespace PdfResizeHelper
     /// </summary>
     public class PdfResizeInfo
     {
-        public PdfResizeInfo Default = new PdfResizeInfo();
+        public static PdfResizeInfo Default = new PdfResizeInfo();
 
         public PdfResizeInfo(Rectangle pageSize = null, PdfMarginRectangle marginSize = null)
         {
