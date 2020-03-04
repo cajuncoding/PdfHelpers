@@ -2,7 +2,6 @@
 using iTextSharp.text.pdf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfResizeHelper.Parameters;
-using System;
 using System.IO;
 
 namespace PdfResizeHelper.Tests
@@ -43,8 +42,8 @@ namespace PdfResizeHelper.Tests
                 }
             }
 
-            var fileName = $@"D:\Develop\AEG Presents\Temp\MAES-2622 Investigation (Invoice File Resizing)\PERSONAL_TEST - RESIZED TEST - {Guid.NewGuid()}.pdf";
-            File.WriteAllBytes(fileName, resizedBytes);
+            //var fileName = $@"D:\Temp\PdfResizeHelper\RESIZED OUTPUT TEST - {Guid.NewGuid()}.pdf";
+            //File.WriteAllBytes(fileName, resizedBytes);
         }
     }
 }

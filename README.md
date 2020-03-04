@@ -4,9 +4,9 @@ Lightweight Helper Library for scaling and resizing Pdf Documents and Pages of e
 It's as easy as . . .
 
 ```
-    byte[] pdfBytes = File.ReadAllBytes("...path to pdf...");
-    var targetSizeInfo = new PdfResizeInfo(PageSize.POSTCARD, PdfMarginSize.None);
-    byte[] scaledPdfBytes = PdfResizeHelper.ResizePdfPageSize(pdfBytes, targetSizeInfo, PdfScalingOptions.Default)
+byte[] pdfBytes = File.ReadAllBytes("...path to pdf...");
+var targetSizeInfo = new PdfResizeInfo(PageSize.POSTCARD, PdfMarginSize.None);
+byte[] scaledPdfBytes = PdfResizeHelper.ResizePdfPageSize(pdfBytes, targetSizeInfo, PdfScalingOptions.Default)
 ```
 
 
