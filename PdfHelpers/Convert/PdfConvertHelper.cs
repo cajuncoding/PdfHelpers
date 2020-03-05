@@ -21,7 +21,7 @@ namespace PdfHelpers.Convert
                 {
                     var imgTemplate = new ImgTemplate(iTextImage);
                     var scaledContent = PdfResizeHelper.ScalePdfContentForTargetDoc(imgTemplate, pdfDocBuilder, scalingOptions);
-                    pdfDocBuilder.SetPageSize(scaledContent.TargetPageSize);
+                    pdfDocBuilder.SetPageSize(scaledContent.ScaledPageSize);
                     pdfDocBuilder.NewPage();
                     pdfDocBuilder.Add(scaledContent.ScaledPdfContent);
                 }

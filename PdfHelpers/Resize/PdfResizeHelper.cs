@@ -42,11 +42,15 @@ namespace PdfHelpers.Resize
 
                     //Set the Page dimensions processed by the Scaling logic (e.g. Supports dynamic use of Landscape Orientation)...
                     //  and then move the doc cursor to initialize a new page with these settings so we can add the content.
-                    pdfDocBuilder.SetPageSize(scaledTemplateInfo.TargetPageSize);
+                    pdfDocBuilder.SetPageSize(scaledTemplateInfo.ScaledPageSize);
                     pdfDocBuilder.NewPage();
 
                     //Add the scaled content to the Document (ie. Pdf Template with the Content Embedded)...
                     pdfDocBuilder.Add(scaledTemplateInfo.ScaledPdfContent);
+
+                    //Now we need to Reset the page size to the target size for processing of the next page...
+                    //NOTE: the Margins never change so we don't need to re-set them.
+                    pdfDocBuilder.SetPageSize(targetSizeInfo.PageSize);
                 }
 
                 pdfDocBuilder.Close();
@@ -136,8 +140,8 @@ namespace PdfHelpers.Resize
             return new PdfScaledTemplateInfo()
             {
                 ScaledPdfContent = pdfContent,
-                PageOrientation = pageOrientation,
-                TargetPageSize = targetSize
+                ScaledPageOrientation = pageOrientation,
+                ScaledPageSize = targetSize
             };
         }
 
