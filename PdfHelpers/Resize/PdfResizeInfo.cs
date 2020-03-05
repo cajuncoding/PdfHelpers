@@ -1,6 +1,6 @@
 ﻿using iTextSharp.text;
 
-namespace PdfResizeHelper
+namespace PdfHelpers.Resize
 {
     /// <summary>
     /// BBernard

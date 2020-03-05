@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace PdfResizeHelper.Tests
+namespace PdfHelpers.Tests
 {
     public class TestHelper
     {

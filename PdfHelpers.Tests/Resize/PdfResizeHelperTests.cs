@@ -1,15 +1,14 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PdfResizeHelper.Parameters;
+using PdfHelpers.Resize;
 using System;
 using System.IO;
 
-namespace PdfResizeHelper.Tests
+namespace PdfHelpers.Tests.Resize
 {
     [TestClass]
-    [System.Runtime.InteropServices.Guid("5800FE55-212D-4D8A-BBCB-258EBFF9A55B")]
-    public class TestPdfResizeHelper
+    public class PdfResizeHelperTests
     {
         [TestMethod]
         public void PdfResizeHelperSimpleTest()

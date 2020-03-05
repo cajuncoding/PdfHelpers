@@ -1,14 +1,12 @@
 ﻿using iTextSharp.awt.geom;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using PdfResizeHelper.Parameters;
 using System;
 using System.IO;
 
-namespace PdfResizeHelper
+namespace PdfHelpers.Resize
 {
-
-    public class PdfResizeHelper
+    public static class PdfResizeHelper
     {
         public static byte[] ResizePdfPageSize(byte[] pdfBytes, PdfResizeInfo targetSizeInfo, PdfScalingOptions scalingOptions = null)
         {
@@ -22,40 +20,36 @@ namespace PdfResizeHelper
             //Statically ensure that Compression is enabled...
             Document.Compress = true;
 
-            using (var outputMemoryStream = new MemoryStream())
-            using (var targetDoc = new Document(targetSizeInfo.PageSize))
-            using (var pdfReader = new PdfReader(pdfBytes))
-            using (var pdfWriter = PdfWriter.GetInstance(targetDoc, outputMemoryStream))
-            {
-                targetDoc.Open();
+            var marginInfo = targetSizeInfo.MarginSize;
 
-                var marginSizeRect = targetSizeInfo.MarginSize;
-                targetDoc.SetMargins(
-                    marginSizeRect.Left,
-                    marginSizeRect.Right,
-                    marginSizeRect.Top,
-                    marginSizeRect.Bottom
-                );
+            using (var outputMemoryStream = new MemoryStream())
+            using (var pdfDocBuilder = new Document(targetSizeInfo.PageSize, marginInfo.Left, marginInfo.Right, marginInfo.Top, marginInfo.Bottom))
+            using (var pdfReader = new PdfReader(pdfBytes))
+            using (var pdfWriter = PdfWriter.GetInstance(pdfDocBuilder, outputMemoryStream))
+            {
+                pdfDocBuilder.Open();
 
                 var pageCount = pdfReader.NumberOfPages;
                 for (int pageNumber = 1; pageNumber <= pageCount; pageNumber++)
                 {
                     //Read the content for the current page...
+                    //NOTE: We use the PdfWriter to import the Page (not the Document) to ensures that all required
+                    //      references (e.g. Fonts, Symbols, Images, etc.) are all imported into the target Doc builder.
                     PdfImportedPage page = pdfWriter.GetImportedPage(pdfReader, pageNumber);
 
                     //Scale the content for the target parameters...
-                    var scaledTemplateInfo = ScalePdfContentForTargetDoc(page, targetDoc, pdfScalingOptions);
+                    var scaledTemplateInfo = ScalePdfContentForTargetDoc(page, pdfDocBuilder, pdfScalingOptions);
 
                     //Set the Page dimensions processed by the Scaling logic (e.g. Supports dynamic use of Landscape Orientation)...
                     //  and then move the doc cursor to initialize a new page with these settings so we can add the content.
-                    targetDoc.SetPageSize(scaledTemplateInfo.TargetPageSize);
-                    targetDoc.NewPage();
+                    pdfDocBuilder.SetPageSize(scaledTemplateInfo.TargetPageSize);
+                    pdfDocBuilder.NewPage();
 
                     //Add the scaled content to the Document (ie. Pdf Template with the Content Embedded)...
-                    targetDoc.Add(scaledTemplateInfo.ScaledPdfTemplate);
+                    pdfDocBuilder.Add(scaledTemplateInfo.ScaledPdfContent);
                 }
 
-                targetDoc.Close();
+                pdfDocBuilder.Close();
 
                 byte[] finalFileBytes = outputMemoryStream.ToArray();
                 return finalFileBytes;
@@ -64,10 +58,15 @@ namespace PdfResizeHelper
 
         public static PdfScaledTemplateInfo ScalePdfContentForTargetDoc(PdfImportedPage currentPage, Document targetDoc, PdfScalingOptions scalingOptions = null)
         {
-            if (currentPage == null) throw new ArgumentNullException(nameof(currentPage), "Pdf Imported Page cannot be null.");
+            return ScalePdfContentForTargetDoc(new ImgTemplate(currentPage), targetDoc, scalingOptions);
+        }
+
+        public static PdfScaledTemplateInfo ScalePdfContentForTargetDoc(ImgTemplate contentTemplate, Document targetDoc, PdfScalingOptions scalingOptions = null)
+        {
+            if (contentTemplate == null) throw new ArgumentNullException(nameof(contentTemplate), "Pdf Content to be resized cannot be null.");
             if (targetDoc == null) throw new ArgumentNullException(nameof(targetDoc), "Target Pdf Document builder cannot be null.");
 
-            var pdfContent = new ImgTemplate(currentPage);
+            var pdfContent = new ImgTemplate(contentTemplate);
 
             //Initialize with Default Scaling Options...
             var pdfScalingOptions = scalingOptions ?? PdfScalingOptions.Default;
@@ -136,7 +135,7 @@ namespace PdfResizeHelper
 
             return new PdfScaledTemplateInfo()
             {
-                ScaledPdfTemplate = pdfContent,
+                ScaledPdfContent = pdfContent,
                 PageOrientation = pageOrientation,
                 TargetPageSize = targetSize
             };

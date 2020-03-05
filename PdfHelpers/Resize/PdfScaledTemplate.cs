@@ -1,10 +1,10 @@
 ﻿using iTextSharp.text;
 
-namespace PdfResizeHelper
+namespace PdfHelpers.Resize
 {
     public class PdfScaledTemplateInfo
     {
-        public ImgTemplate ScaledPdfTemplate { get; set; }
+        public ImgTemplate ScaledPdfContent { get; set; }
         public PdfPageOrientation PageOrientation { get; set; }
         public Rectangle TargetPageSize { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿namespace PdfResizeHelper
+﻿namespace PdfHelpers.Resize
 {
     public enum PdfResizeScalingMode
     {

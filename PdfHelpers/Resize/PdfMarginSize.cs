@@ -1,23 +1,20 @@
 ﻿using iTextSharp.text;
 
-namespace PdfResizeHelper
+namespace PdfHelpers.Resize
 {
     public class PdfMarginRectangle : RectangleReadOnly
     {
         public PdfMarginRectangle(float left, float bottom, float right, float top)
             : base(left, bottom, right, top)
-        {
-        }
+        { }
 
         public PdfMarginRectangle(float leftRight, float topBottom)
             : base(leftRight, topBottom, leftRight, topBottom)
-        {
-        }
+        { }
 
         public PdfMarginRectangle(float margin)
             : base(margin, margin, margin, margin)
-        {
-        }
+        { }
     }
 
     public class PdfMarginSize
