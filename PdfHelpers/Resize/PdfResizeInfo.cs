@@ -21,15 +21,17 @@ namespace PdfHelpers.Resize
     {
         public static PdfResizeInfo Default = new PdfResizeInfo();
 
-        public PdfResizeInfo(Rectangle pageSize = null, PdfMarginRectangle marginSize = null)
+        public PdfResizeInfo(Rectangle pageSize = null, PdfMarginRectangle marginSize = null, int rotationDegrees = 0)
         {
             //NOTE: Due to namespace conflicts we reference the fully qualified PageSize for iTextSharp.
             this.PageSize = pageSize ?? iTextSharp.text.PageSize.LETTER;
             this.MarginSize = marginSize ?? PdfMarginSize.None;
+            this.RotationDegrees = rotationDegrees;
         }
 
         public Rectangle PageSize { get; set; }
         public PdfMarginRectangle MarginSize { get; set; }
+        public int RotationDegrees { get; set; }
     }
 
 }
