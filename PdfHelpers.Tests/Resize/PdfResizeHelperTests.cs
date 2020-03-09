@@ -13,10 +13,7 @@ namespace PdfHelpers.Tests.Resize
         [TestMethod]
         public void PdfResizeHelperSimpleTest()
         {
-            //var originalPdfBytes = TestHelper.ReadTestDataFileBytes(@"TestDoc_01.pdf");
-            //var originalPdfBytes = TestHelper.ReadTestDataFileBytes(@"ROTATED-INCORRECTLY-TEST-fec3dc70-e2dd-4765-9645-d4930b0b39d5.pdf");
-            var originalPdfBytes = File.ReadAllBytes(@"D:\Develop\AEG Presents\Temp\MAES-2622 Investigation (Invoice File Resizing)\Bug\ROTATED-INCORRECTLY-TEST-CONTENT-791ec94a-5926-409e-910c-a39bb6000e9f.pdf");
-            //var originalPdfBytes = File.ReadAllBytes(@"D:\Develop\AEG Presents\Temp\MAES-2622 Investigation (Invoice File Resizing)\Bug\ROTATED-INCORRECTLY-TEST-IMAGE-fec3dc70-e2dd-4765-9645-d4930b0b39d5.pdf");
+            var originalPdfBytes = TestHelper.ReadTestDataFileBytes(@"TestDoc_01.pdf");
 
             //*************************************************
             //Setup & Execute Tests...
