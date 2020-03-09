@@ -30,7 +30,6 @@ namespace PdfHelpers.Tests.Resize
             File.WriteAllBytes($@"D:\Temp\PdfResizeHelper\RESIZED OUTPUT TEST - {Guid.NewGuid()}.pdf", resizedBytes);
         }
 
-
         public void AssertThatPdfSizeIsAsExpected(byte[] resizedBytes, PdfResizeInfo resizeInfo)
         {
             //*************************************************
