@@ -9,7 +9,12 @@ byte[] pdfBytes = File.ReadAllBytes("...path to pdf...");
 var targetSizeInfo = new PdfResizeInfo(PageSize.POSTCARD, PdfMarginSize.None);
 byte[] scaledPdfBytes = PdfResizeHelper.ResizePdfPageSize(pdfBytes, targetSizeInfo, PdfScalingOptions.Default)
 ```
-  
+
+# PdfHelpers.Convert
+Set of helpers for converting common things into Pdf (e.g. converting an Image into Pdf for mergeing/Combining into other Pdf documents.
+
+### Sample for Converting Image to Pdf Document:
+Doc update coming soon...
   
 #### NOTES:
 **Loss of Interactive Elements from Pdfs:**  
