@@ -18,7 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="TestData\floppy_disks.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\ROTATED-INCORRECTLY-TEST-fec3dc70-e2dd-4765-9645-d4930b0b39d5.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\satellite.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestData\TestDoc_01.pdf">

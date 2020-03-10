@@ -3,18 +3,46 @@ Lightweight Helper Library for scaling and resizing Pdf Documents and Pages of e
 
 It's as easy as . . .
 
-### Sample for Resizing Pdf Content:
+#### Sample for Resizing Pdf Content:
 ```
 byte[] pdfBytes = File.ReadAllBytes("...path to pdf...");
 var targetSizeInfo = new PdfResizeInfo(PageSize.POSTCARD, PdfMarginSize.None);
 byte[] scaledPdfBytes = PdfResizeHelper.ResizePdfPageSize(pdfBytes, targetSizeInfo, PdfScalingOptions.Default)
 ```
 
+
 # PdfHelpers.Convert
 Set of helpers for converting common things into Pdf (e.g. converting an Image into Pdf for mergeing/Combining into other Pdf documents.
 
-### Sample for Converting Image to Pdf Document:
-Doc update coming soon...
+#### Sample for Converting Image to Pdf Document:
+```
+var imageBytes = File.ReadAllBytes("...path to valid Image...");
+var pageSizeInfo = new PdfResizeInfo(PageSize.POSTCARD, PdfMarginSize.None);
+var pdfBytes = PdfConvertHelper.ConvertImageToPdf(imageBytes, pageSizeInfo, PdfScalingOptions.Default);
+```   
+
+
+# PdfHelpers.Merge
+Set of helpers for merging Pdf documents together into one output Pdf. When combined with the Convert helper above it's 
+easy to append Image files onto an existing Pdf).  
+
+*NOTE: This uses the PdfSmartCopy underlying copier to merge the documents. Therfore, assuming they haven't been scaled/resized the annotations and dynamic
+elements will be preserved.  This also enables the output document to be optimized without unnecessary duplicate references to embedded elemetns such as Fonts.*
+
+#### Sample for Converting Image to Pdf Document:
+```
+var pageSizeInfo = new PdfResizeInfo(PageSize.POSTCARD, PdfMarginSize.None);
+
+var pdfFileBytesList = new List<byte[]>() {
+    File.ReadAllBytes("...path to pdf..."),
+    PdfConvertHelper.ConvertImageToPdf("...path to valid Image 1...", pageSizeInfo),
+    PdfConvertHelper.ConvertImageToPdf("...path to valid Image 2...", pageSizeInfo),
+    PdfConvertHelper.ConvertImageToPdf("...path to valid Image 3...", pageSizeInfo),
+};
+
+var pdfBytes = PdfConvertHelper.MergePdfFiles(pdfFileBytesList, pageSizeInfo);
+```
+
   
 #### NOTES:
 **Loss of Interactive Elements from Pdfs:**  

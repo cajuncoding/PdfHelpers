@@ -1,5 +1,4 @@
 ﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfHelpers.Resize;
 using System;
@@ -25,46 +24,9 @@ namespace PdfHelpers.Tests.Resize
             //*************************************************
             //Validate Results...
             //*************************************************
-            AssertThatPdfSizeIsAsExpected(resizedBytes, resizeInfo);
+            TestHelper.AssertThatPdfPageSizeIsAsExpected(resizedBytes, resizeInfo);
 
             File.WriteAllBytes($@"D:\Temp\PdfResizeHelper\RESIZED OUTPUT TEST - {Guid.NewGuid()}.pdf", resizedBytes);
-        }
-
-        public void AssertThatPdfSizeIsAsExpected(byte[] resizedBytes, PdfResizeInfo resizeInfo)
-        {
-            //*************************************************
-            //Validate Results...
-            //*************************************************
-            using (var pdf = new PdfReader(resizedBytes))
-            {
-                var targetPageSize = resizeInfo.PageSize;
-                for (var i = 1; i <= pdf.NumberOfPages; i++)
-                {
-                    //NOTE: To correctly validate we must get the Page Size WITH any Rotation being applied;
-                    //      which is a  different method that we must call to get all correct details...
-                    var currentPageSize = pdf.GetPageSizeWithRotation(i);
-
-                    //Validate Landscape & Rotation...
-                    if (currentPageSize.Width <= currentPageSize.Height)
-                    {
-                        //PORTRAIT
-                        Assert.IsTrue(currentPageSize.Rotation == 0 || currentPageSize.Rotation == 180, $"Checking Portrait Page Rotation for Page[{i}]");
-                    }
-                    else
-                    {
-                        //LANDSCAPE
-                        Assert.IsTrue(currentPageSize.Rotation == 90 || currentPageSize.Rotation == 270, $"Checking Landscape Page Rotation for Page[{i}]");
-
-                        //Rotate the Target Page size so we can safely compare Width & Height...
-                        targetPageSize = targetPageSize.Rotate();
-                    }
-
-                    //After handling Rotation we can validate the Width & Height of the Sizes!
-                    Assert.AreEqual(currentPageSize.Width, targetPageSize.Width, $"Comparing PageSize Width for Page[{i}]");
-                    Assert.AreEqual(currentPageSize.Height, targetPageSize.Height, $"Comparing PageSize Height for Page[{i}]");
-                }
-            }
-
         }
     }
 }

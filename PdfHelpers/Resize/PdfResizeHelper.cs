@@ -18,7 +18,8 @@ namespace PdfHelpers.Resize
 
             //BBernard
             //Statically ensure that Compression is enabled...
-            Document.Compress = true;
+            Document.Compress = pdfScalingOptions.EnableCompression;
+            PdfReader.unethicalreading = pdfScalingOptions.EnableUnethicalReading;
 
             var marginInfo = targetSizeInfo.MarginSize;
 
@@ -114,7 +115,7 @@ namespace PdfHelpers.Resize
             //If Enabled then we handle dynamic rotation based on the input source rotation (if specified)...
             //NOTE: Rotation MUST be handled BEFORE the Scaling to ensure we scale with the appropriate Width & Height
             //      of the existing content!
-            if (pdfScalingOptions.EnableContentCentering && currentContentSize.Rotation > 0)
+            if (pdfScalingOptions.EnableDynamicRotationHandling && currentContentSize.Rotation > 0)
             {
                 //BBernard
                 //Compute Adjustment Rotation for correct rotation...if the input Source has a Rotation Already!
