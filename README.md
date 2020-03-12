@@ -1,5 +1,8 @@
 # PdfHelpers.Resize
-Lightweight Helper Library for scaling and resizing Pdf Documents and Pages of existing Pdf documents.  It leverages iTextSharp for core work but offeres a easy wrapper for common resizing needs.
+Lightweight Helper Library for performing tasks on Pdf files such as: scaling and resizing Pdf Documents and Pages of existing Pdf documents, convering Images into Pdf 
+format, and merging Pdf Documents as well as merging Images into Existing Pdf documents.  It leverages iTextSharp for core work but offeres a easy wrapper for common 
+resizing, conversion, and merging needs.  In addition, this library is intented to help simplify the task of rendering Pdf based outputs/reports and works best when 
+combined with a template based Pdf Rendering process [such as the one here that allows use of Razor templates to render Pdf files](https://github.com/cajuncoding/XslFO.TestSolution).
 
 It's as easy as . . .
 
