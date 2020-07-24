@@ -1,4 +1,21 @@
-# PdfHelpers.Resize
+# iTextSharp.PdfHelpers Project Overview:
+A set of helpfer methods to greatly help with post-processing or pre-processing of PDF files using iTextSharp libraries. These elements provide very powerful capabilities when used in combination with a [dynamic templating appraoch to rendering PDF printable outputs (using Xsl-FO via MVC or Xslt)](https://github.com/cajuncoding/PdfTemplating.XslFO).
+
+iTextSharp is a powerful Pdf processing library, but implementing correctly can take more effort/code than expected. In addition, there are sometimes multiple ways to accomplish some of these tasks, but not all appraoches are the most efficient.
+
+So these helpers provide a simplified facade for doing common pre/post processing tasks, and help to dramatically decrease the amount of code and effort needed to meet your requirements for generating dynamic printable Pdf outputs.
+
+#### Some use-cases:
+ - Allow dynamic data-driven real-time rendered outputs to be combined with other Pdf content, or Images, uploaded by users (e.g. invoices, backup content, etc.)
+ - Allow pre-defined Pdf content or Images to be pre-pended/appended to dynamically rendered Pdf content
+ - Allow dynamic resizing (scale-up, scale-down, etc.) of imagery when added to existing, or dynamically rendered, Pdf content
+
+Many requirements can be met with some combination of these capabilities...
+
+## Nuget Package
+To use behaviors in your project, add the [iTextSharp.PdfHelpers NuGet package](https://www.nuget.org/packages/iTextSharp.PdfHelpers/) to your project.
+
+## PdfHelpers.Resize
 Lightweight Helper Library for performing tasks on Pdf files such as: scaling and resizing Pdf Documents and Pages of existing Pdf documents, converting Images into Pdf 
 format, and merging Pdf Documents as well as merging Images into Existing Pdf documents.  It leverages iTextSharp for core work but offeres a easy wrapper for common 
 resizing, conversion, and merging needs.  In addition, this library is intented to help simplify the task of rendering Pdf based outputs/reports and works best when 
@@ -14,7 +31,7 @@ byte[] scaledPdfBytes = PdfResizeHelper.ResizePdfPageSize(pdfBytes, targetSizeIn
 ```
 
 
-# PdfHelpers.Convert
+## PdfHelpers.Convert
 Set of helpers for converting common things into Pdf (e.g. converting an Image into Pdf for mergeing/Combining into other Pdf documents.
 
 #### Sample for Converting Image to Pdf Document:
@@ -25,7 +42,7 @@ var pdfBytes = PdfConvertHelper.ConvertImageToPdf(imageBytes, pageSizeInfo, PdfS
 ```   
 
 
-# PdfHelpers.Merge
+## PdfHelpers.Merge
 Set of helpers for merging Pdf documents together into one output Pdf. When combined with the Convert helper above it's 
 easy to append Image files onto an existing Pdf).  
 
