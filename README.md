@@ -12,6 +12,17 @@ So these helpers provide a simplified facade for doing common pre/post processin
 
 Many requirements can be met with some combination of these capabilities...
 
+### Give Star 🌟
+**If you like this project and/or use it the please give it a Star 🌟 (c'mon it's free, and it'll help others find the project)!**
+
+### [Buy me a Coffee ☕](https://www.buymeacoffee.com/cajuncoding)
+*I'm happy to share with the community, but if you find this useful (e.g for professional use), and are so inclinded,
+then I do love-me-some-coffee!*
+
+<a href="https://www.buymeacoffee.com/cajuncoding" target="_blank">
+<img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
+</a> 
+
 ## Nuget Package
 To use behaviors in your project, add the [iTextSharp.PdfHelpers NuGet package](https://www.nuget.org/packages/iTextSharp.PdfHelpers/) to your project.
 
